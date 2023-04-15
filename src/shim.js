@@ -52,7 +52,7 @@ function getBinary (proc) {
 }
 
 function getArgs (proc) {
-  return proc.argv.filter((arg) => !(arg.endsWith('.js') || arg.endsWith('node')))
+  return proc.argv.filter((arg) => !(arg.endsWith('.js') || arg.endsWith('node') || arg.endsWith('Plex Transcoder')))
 }
 
 function shimCall () {
@@ -75,7 +75,7 @@ function shimCall () {
     process.stdout.write(data)
   })
   proc.stderr.on('data', (data) => {
-    logger.error('Stderr: %s')
+    logger.error('Stderr: %s', data)
     process.stderr.write(data)
   })
   proc.on('error', (err) => {
