@@ -4,6 +4,7 @@ const nodePath = require('node:path')
 const fs = require('node:fs/promises')
 const winston = require('winston')
 const spawn = require('node:child_process').spawn
+const { tmpdir } = require('node:os')
 
 const logger = winston.createLogger({
   level: 'info',
@@ -12,8 +13,8 @@ const logger = winston.createLogger({
     winston.format.json()
   ),
   transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' })
+    new winston.transports.File({ filename: nodePath.resolve(tmpdir(), 'error.log'), level: 'error' }),
+    new winston.transports.File({ filename: nodePath.resolve(tmpdir(), 'combined.log') })
   ]
 })
 
