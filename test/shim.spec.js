@@ -1,16 +1,16 @@
 
 const crypto = require('node:crypto')
-const fsOg = require('node:fs');
-const { tmpdir } = require('node:os');
+const fsOg = require('node:fs')
+const { describe, expect, it } = require('@jest/globals')
 
-function checksumFile(hashName, path) {
+function checksumFile (hashName, path) {
   return new Promise((resolve, reject) => {
-    const hash = crypto.createHash(hashName);
-    const stream = fsOg.createReadStream(path);
-    stream.on('error', err => reject(err));
-    stream.on('data', chunk => hash.update(chunk));
-    stream.on('end', () => resolve(hash.digest('hex')));
-  });
+    const hash = crypto.createHash(hashName)
+    const stream = fsOg.createReadStream(path)
+    stream.on('error', err => reject(err))
+    stream.on('data', chunk => hash.update(chunk))
+    stream.on('end', () => resolve(hash.digest('hex')))
+  })
 }
 describe('shim.js', () => {
   it('proxies calls and logs info', async () => {
@@ -23,13 +23,13 @@ describe('shim.js', () => {
     const path = require('node:path')
     const execSync = require('node:child_process').execSync
     const testPathPrefix = path.join('./test/tmp/', 'proxy-shim')
-    
+
     await fs.mkdir('./test/tmp/', {
       recursive: true
     })
 
     const tmpDir = await fs.mkdtemp(testPathPrefix)
-  
+
     const copyShimProm = fs.copyFile(path.resolve('./src/shim.js'), path.join(tmpDir, 'test.js'))
     const copytestProm = fs.copyFile(path.resolve('./test/resources/test.js'), path.join(tmpDir, 'test.js.original'))
     await Promise.all([copyShimProm, copytestProm])
@@ -37,7 +37,7 @@ describe('shim.js', () => {
       encoding: 'utf-8',
       env: {
         test: 'test',
-        ... process.env
+        ...process.env
       }
     }))
     expect(result.envVars.test).toEqual('test')
@@ -49,7 +49,7 @@ describe('shim.js', () => {
     const path = require('node:path')
     const execSync = require('node:child_process').execSync
     const testPathPrefix = path.join('./test/tmp/', 'install-shim')
-    
+
     await fs.mkdir('./test/tmp/', {
       recursive: true
     })

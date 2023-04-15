@@ -37,28 +37,27 @@ async function install (path) {
   await fs.copyFile(installedThing, target)
 }
 
-function nodeIntrepretatorUsed(proc) {
+function nodeIntrepretatorUsed (proc) {
   return proc.argv[0].endsWith('node')
 }
 
-function getBinary(proc) {
+function getBinary (proc) {
   const isNodeCalled = nodeIntrepretatorUsed(proc)
-  if(isNodeCalled) {
+  if (isNodeCalled) {
     return proc.argv[1] + '.original'
   } else {
     return proc.argv[0] + '.original'
   }
 }
 
-function getArgs(proc) {
+function getArgs (proc) {
   const isNodeCalled = nodeIntrepretatorUsed(proc)
-  if(isNodeCalled) {
+  if (isNodeCalled) {
     return proc.argv.slice(2)
   } else {
     return proc.argv.slice(1)
   }
 }
-
 
 function shimCall () {
   // we have args
@@ -96,7 +95,7 @@ function shimCall () {
 }
 
 async function run () {
-  // check 
+  // check
   if (process.argv.length === 4 && process.argv[2] === '--install') {
     await install(process.argv[3])
   } else {
