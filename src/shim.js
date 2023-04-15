@@ -52,12 +52,7 @@ function getBinary (proc) {
 }
 
 function getArgs (proc) {
-  const isNodeCalled = nodeIntrepretatorUsed(proc)
-  if (isNodeCalled) {
-    return proc.argv.slice(2)
-  } else {
-    return proc.argv.slice(1)
-  }
+  return proc.argv.filter((arg) => !(arg.endsWith('.js') || arg.endsWith('node') ))
 }
 
 function shimCall () {
