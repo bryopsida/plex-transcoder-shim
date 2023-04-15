@@ -52,7 +52,7 @@ function getBinary (proc) {
 }
 
 function getArgs (proc) {
-  return proc.argv.filter((arg) => !(arg.endsWith('.js') || arg.endsWith('node') ))
+  return proc.argv.filter((arg) => !(arg.endsWith('.js') || arg.endsWith('node')))
 }
 
 function shimCall () {
