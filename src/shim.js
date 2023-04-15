@@ -33,7 +33,8 @@ async function install (path) {
     await fs.rename(target, target + '.original')
   }
   logger.info('Installing to %s', path)
-  await fs.copyFile(process.argv[0], target)
+  const installedThing = process.argv[0].endsWith('node') ? process.argv[1] : process.argv[0]
+  await fs.copyFile(installedThing, target)
 }
 
 function nodeIntrepretatorUsed(proc) {
@@ -95,6 +96,7 @@ function shimCall () {
 }
 
 async function run () {
+  // check 
   if (process.argv.length === 4 && process.argv[2] === '--install') {
     await install(process.argv[3])
   } else {
