@@ -34,7 +34,7 @@
     "outputPath": "dist"
   },
   "devDependencies": {
-    "jest": "^29.5.0",
+    "jest": "^30.0.0",
     "pkg": "^5.8.1",
     "standard": "^17.0.0"
   },
